@@ -4,7 +4,7 @@
 
 @layer components {
     .form-container {
-        @apply flex flex-col w-96 rounded-lg border border-gray-300 p-4;
+        @apply flex flex-col w-96 rounded-lg border border-gray-300 p-4 bg-white;
     }
 
     .form-label {
@@ -12,6 +12,6 @@
     }
 
     .form-submit {
-        @apply block w-full rounded-lg p-2.5 text-sm font-bold
+        @apply block w-full rounded-lg p-2.5 text-sm font-bold disabled:opacity-80 transition ease-in-out duration-300
     }
 }
