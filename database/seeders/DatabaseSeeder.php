@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'harvicapino22@gmail.com',
             'remember_token' => null,
         ]);
+
+        $this->call([TagSeeder::class, GenreSeeder::class]);
     }
 }

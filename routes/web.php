@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\View\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,9 @@ Route::middleware(['verified','auth'])->group(function() {
             'phpVersion' => PHP_VERSION,
         ]);
     });
+
+    Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
+    Route::resource('tags', TagController::class);
 });
 
 require __DIR__.'/auth.php';
