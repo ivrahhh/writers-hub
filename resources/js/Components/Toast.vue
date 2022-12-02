@@ -45,7 +45,7 @@ onUpdated(() => {
                 </div>
                 <i class="fa-solid fa-xmark text-gray-400 hover:text-gray-700 cursor-pointer" @click="dismiss"></i>
             </div>
-            <span class="text-sm text-gray-600">
+            <span class="text-sm text-gray-600 overflow-hidden">
                 {{ props.message }}
             </span>
         </div>

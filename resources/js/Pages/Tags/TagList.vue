@@ -1,12 +1,14 @@
 <script setup>
+import TagModal from '@/Components/TagModal.vue';
 import Pagination from '@/Components/Pagination.vue';
+import TextBox from '@/Components/TextBox.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
-import { Head } from '@inertiajs/inertia-vue3';
-import { computed } from 'vue';
-
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { computed, ref } from 'vue';
 
 defineProps({
     tags: Object,
+    status: String,
 })
 
 </script>
@@ -14,10 +16,18 @@ defineProps({
 <template>
     <Head title="Tags"/>
     <AdminLayout>
-        <div class="relative overflow-x-auto bg-white shadow rounded-lg">
+        <div class="my-4">
+            <Modal >
+                <template #toggler>
+                    <i class="fa-solid fa-plus"></i>
+                    New Tag
+                </template>
+            </Modal>
+        </div>
+        <div class="relative overflow-x-auto bg-white shadow rounded-lg ring-1 ring-black ring-opacity-5">
             <table class="text-sm text-left w-full">
                 <thead>
-                    <tr class="select-none bg-gray-50 border-b font-semibold">
+                    <tr class="select-none bg-slate-900 text-white border-b font-semibold">
                         <td scope="col" class="px-6 py-3">Tag ID</td>
                         <td scope="col" class="px-6 py-3">Tag</td>
                         <td scope="col" class="px-6 py-3">Added at</td>

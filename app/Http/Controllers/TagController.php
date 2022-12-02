@@ -29,7 +29,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Tags/TagForm');
     }
 
     /**
@@ -41,13 +41,7 @@ class TagController extends Controller
             'tag' => 'required|string|unique:tags',
         ]);
 
-        try {
-            Tag::create($tag);            
-        } catch (QueryException $ex) {
-            return back()->with([
-                'status' => $ex,
-            ]);
-        }
+        Tag::create($tag);            
 
         return back()->with([
             'status' => 'tag-successfully-added',

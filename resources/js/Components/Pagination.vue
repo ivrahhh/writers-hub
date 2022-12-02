@@ -16,7 +16,7 @@ defineProps({
         <span class="text-sm text-gray-500">
             {{ `Showing ${from} to ${to} of ${total} results` }}
         </span>
-        <div class="flex items-center bg-white rounded-lg divide-x text-sm shadow">
+        <div class="flex items-center bg-white rounded-lg divide-x text-sm shadow ring-1 ring-black ring-opacity-5">
             <Link :href="link.url" v-for="link in links" class="flex items-center justify-center px-4 py-2" :class="[{ 'bg-slate-900 text-white hover:bg-slate-800' : link.active }, { 'pointer-events-none' : link.url === null }]">
                 <span v-html="link.label"></span>
             </Link>
