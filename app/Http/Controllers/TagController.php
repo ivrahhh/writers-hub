@@ -29,7 +29,9 @@ class TagController extends Controller
      */
     public function create()
     {
-        return inertia('Tags/TagForm');
+        return inertia('Tags/TagForm', [
+            'status' => session('status'),
+        ]);
     }
 
     /**
@@ -90,6 +92,10 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+
+        return back()->with([
+            'status' => 'tag-has-been-deleted'
+        ]);
     }
 }
