@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\View\DashboardController;
 use Illuminate\Foundation\Application;
@@ -26,7 +27,8 @@ Route::middleware(['verified','auth'])->group(function() {
     });
 
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
-    Route::resource('tags', TagController::class);
+    Route::resource('tags', TagController::class)->except('show');
+    Route::resource('genres', GenreController::class)->except('show');
 });
 
 require __DIR__.'/auth.php';
