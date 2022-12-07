@@ -28,8 +28,11 @@ class GenreController extends Controller
 
     public function store(Request $request) : RedirectResponse
     {
+        $this->authorize('create', Genre::class);
+        
         $genre = $request->validate([
             'genre' => 'required|unique:genres',
+            'description' => 'required',
         ]);
 
         Genre::query()->create($genre);
@@ -49,6 +52,8 @@ class GenreController extends Controller
 
     public function update(Genre $genre, Request $request) : RedirectResponse
     {
+        $this->authorize('update', $genre);
+
         $validated = $request->validate([
             'genre' => [
                 'required',
@@ -66,6 +71,8 @@ class GenreController extends Controller
 
     public function destroy(Genre $genre) : RedirectResponse
     {
+        $this->authorize('delete', $genre);
+
         $genre->delete();
 
         return back()->with([

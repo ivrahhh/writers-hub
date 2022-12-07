@@ -16,16 +16,16 @@ class GenreSeeder extends Seeder
     public function run()
     {
         Genre::query()->insert([
-            ['genre' => 'Harem'],
-            ['genre' => 'Romance'],
-            ['genre' => 'Fantasy'],
-            ['genre' => 'Action'],
-            ['genre' => 'School Life'],
-            ['genre' => 'Adventure'],
-            ['genre' => 'Comedy'],
-            ['genre' => 'Ecchi'],
-            ['genre' => 'Horror'],
-            ['genre' => 'Drama'],
+            ['genre' => 'Harem', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Romance', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Fantasy', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Action', 'description' => fake()->unique()->realText()],
+            ['genre' => 'School Life', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Adventure', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Comedy', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Ecchi', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Horror', 'description' => fake()->unique()->realText()],
+            ['genre' => 'Drama', 'description' => fake()->unique()->realText()],
         ]);
     }
 }
