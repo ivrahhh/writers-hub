@@ -159,4 +159,20 @@ class BookTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    public function test_user_can_delete_their_own_book()
+    {
+        $book = Book::factory()->for($this->user)->create();
+
+        $response = $this->actingAs($this->user)->delete(route('books.destroy', $book->id));
+        $this->assertModelMissing($book);
+    }
+
+    public function test_other_user_cannot_delete_book_they_do_not_own()
+    {
+        $book = Book::factory()->create();
+
+        $response = $this->actingAs($this->user)->delete(route('books.destroy', $book->id));
+        $response->assertStatus(403);
+    }
 }

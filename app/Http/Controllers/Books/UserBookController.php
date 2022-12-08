@@ -89,4 +89,15 @@ class UserBookController extends Controller
             'status' => 'book-info-has-been-updated',
         ]);
     }
+
+    public function destroy(Book $book) : RedirectResponse
+    {
+        $this->authorize('delete', $book);
+
+        $book->delete();
+
+        return back()->with([
+            'status' => 'book-has-been-deleted',
+        ]);
+    }
 }
