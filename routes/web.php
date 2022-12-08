@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\Books\UserBookController;
 use App\Http\Controllers\View\DashboardController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ Route::middleware(['verified','auth'])->group(function() {
     Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::resource('tags', TagController::class)->except('show');
     Route::resource('genres', GenreController::class)->except('show');
+    Route::resource('books', UserBookController::class);
 });
 
 require __DIR__.'/auth.php';

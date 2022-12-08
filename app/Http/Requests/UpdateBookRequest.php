@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
-class CreateBookRequest extends FormRequest
+class UpdateBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,27 +25,29 @@ class CreateBookRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|unique:books,title',
-            'synopsis' => 'required|min:100',
+            'title' => [
+                'required',
+                Rule::unique('books','title')->ignore($this->book),
+            ],
+
+            'synopsis' => 'required|min:8',
+            'tags' => 'required',
             'genres' => 'required',
-            'tags' => 'required', 
         ];
     }
 
     public function validatedBookInfo() : array
     {
-        return array_merge($this->safe()->only(['title','synopsis']), [
-            'user_id' => Auth::id(),
-        ]);
+        return $this->safe()->only(['title','synopsis']);
     }
 
     public function genres() : array
     {
-        return $this->validated('genres')->toArray();
+        return $this->validated('genres');
     }
 
     public function tags() : array
     {
-        return $this->validated('tags')->toArray();
+        return $this->validated('tags');
     }
 }

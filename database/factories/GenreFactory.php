@@ -17,7 +17,8 @@ class GenreFactory extends Factory
     public function definition()
     {
         return [
-            
+            'genre' => fake()->unique()->word(),
+            'description' => fake()->realText(),
         ];
     }
 }

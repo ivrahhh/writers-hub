@@ -14,7 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('book_tags', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('book_id')
+                ->constrained('books')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignUuid('tag_id')
+                ->constrained('tags')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+                
             $table->timestamps();
         });
     }

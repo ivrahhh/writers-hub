@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Genre;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class GenreSeeder extends Seeder
 {
@@ -16,16 +17,17 @@ class GenreSeeder extends Seeder
     public function run()
     {
         Genre::query()->insert([
-            ['genre' => 'Harem', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Romance', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Fantasy', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Action', 'description' => fake()->unique()->realText()],
-            ['genre' => 'School Life', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Adventure', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Comedy', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Ecchi', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Horror', 'description' => fake()->unique()->realText()],
-            ['genre' => 'Drama', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Harem', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Romance', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Fantasy', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Action', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'School Life', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Adventure', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Comedy', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Ecchi', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Horror', 'description' => fake()->unique()->realText()],
+            ['id' => Str::orderedUuid(),'genre' => 'Drama', 'description' => fake()->unique()->realText()],
         ]);
+        
     }
 }

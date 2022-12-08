@@ -19,7 +19,7 @@ class BookFactory extends Factory
     {
         return [
             'title' => fake()->word(),
-            'synopsis' => fake()->paragraphs(3),
+            'synopsis' => fake()->realText(),
             'user_id' => User::factory(),
         ];
     }

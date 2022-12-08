@@ -14,7 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('book_genres', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('book_id')
+                ->constrained('books')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->foreignUuid('genre_id')
+                ->constrained('genres')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+
             $table->timestamps();
         });
     }
