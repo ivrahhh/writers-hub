@@ -17,6 +17,8 @@ class Chapter extends Model
         'book_id',
     ];
 
+    protected $touches = ['book'];
+
     public function book() : BelongsTo
     {
         return $this->belongsTo(Book::class,'book_id');

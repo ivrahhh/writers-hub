@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChapterRequest;
 use App\Http\Requests\CreateChapterRequest;
+use App\Models\Book;
 use App\Models\Chapter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -20,12 +22,22 @@ class ChapterController extends Controller
         return view('Books/Chapters', compact('chapters'));
     }
 
-    public function store(CreateChapterRequest $request) : RedirectResponse
+    public function store(ChapterRequest $request, Book $book) : RedirectResponse
     {
-        Chapter::query()->create($request->validated());
+        $chapter = $book->chapters()->create($request->validated());
 
         return back()->with([
             'status' => 'new-chapter-added',
+        ]);
+    }
+
+    public function update(ChapterRequest $request, Chapter $chapter) : RedirectResponse
+    {
+        dd($request->validated());
+        $chapter->update($request->validated());
+
+        return back()->with([
+            'status' => 'chapter-has-been-updated',
         ]);
     } 
 }

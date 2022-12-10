@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateChapterRequest extends FormRequest
+class ChapterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,14 @@ class CreateChapterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = $this->user();
+        
+        if(is_null($this->chapter)) {
+            return $user->can('update', $this->book);
+        }
     }
 
     /**
@@ -24,7 +31,8 @@ class CreateChapterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'chapter_title' => 'required|max:75',
+            'content' => 'required',
         ];
     }
 }
