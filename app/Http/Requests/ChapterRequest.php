@@ -17,10 +17,12 @@ class ChapterRequest extends FormRequest
          * @var \App\Models\User $user
          */
         $user = $this->user();
-        
-        if(is_null($this->chapter)) {
+
+        if(! is_null($this->book)) {
             return $user->can('update', $this->book);
         }
+        
+        return $this->chapter->book->user->is($this->user());
     }
 
     /**

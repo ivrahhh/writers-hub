@@ -33,7 +33,6 @@ class ChapterController extends Controller
 
     public function update(ChapterRequest $request, Chapter $chapter) : RedirectResponse
     {
-        dd($request->validated());
         $chapter->update($request->validated());
 
         return back()->with([

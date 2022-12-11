@@ -59,14 +59,27 @@ class ChapterTest extends TestCase
     public function test_user_can_update_exsiting_chapter()
     {
         $chapter = Chapter::factory()->for($this->book)->create();
+        $chapterTitle = 'New Chapter';
 
         $response = $this->actingAs($this->user)->put(route('chapters.update', $chapter->id), [
-            'chapter_title' => 'New chpater',
+            'chapter_title' => $chapterTitle,
             'content' => $chapter->content,
         ]);
 
         $response->assertValid();
 
-        
+        $this->assertTrue($chapter->fresh()->chapter_title === $chapterTitle);
+    }
+
+    public function test_admin_cannot_update_any_exisiting_chapter()
+    {
+        $chapter = Chapter::factory()->for($this->book)->create();
+
+        $response  = $this->actingAs($this->admin)->put(route('chapters.update', $chapter->id), [
+            'chapter_title' => 'New Chapter',
+            'content' => $chapter->content,
+        ]);
+
+        $response->assertStatus(403);
     }
 }
