@@ -31,9 +31,9 @@ const save = () => {
     <Head title="Tags" />
 
     <AdminLayout>
-        <Link :href="route('tags.create')" class="block w-max px-4 py-2 rounded-lg mb-4 bg-slate-900 text-sm text-white hover:bg-slate-800 font-semibold transition">
-            <i class="fa-solid fa-plus"></i>
-            Add new Tag
+        <Link :href="route('tags.index')" class="block w-max px-4 py-2 rounded-lg mb-4 bg-slate-900 text-sm text-white hover:bg-slate-800 font-semibold transition">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to List
         </Link>
         <div class="w-full rounded-lg bg-white p-4 shadow ring-1 ring-black ring-opacity-5">
             <form @submit.prevent="save" class="space-y-4">

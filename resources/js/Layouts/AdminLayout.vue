@@ -35,7 +35,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                         </Link>
                     </li>
                     <li class="overflow-hidden">
-                        <Link href="" class="flex items-center gap-3 text-sm px-3 py-2 rounded-lg hover:bg-slate-900 text-white">
+                        <Link :href="route('genres.index')" class="flex items-center gap-3 text-sm px-3 py-2 rounded-lg hover:bg-slate-900 text-white">
                             <i class="fa-solid fa-layer-group"></i>
                             Genres
                         </Link>
