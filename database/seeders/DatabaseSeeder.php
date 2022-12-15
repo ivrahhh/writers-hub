@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'xenocidee',
             'email' => 'harvicapino22@gmail.com',
             'remember_token' => null,
+            'role' => 'Admin'
         ]);
 
         $this->call([TagSeeder::class, GenreSeeder::class]);

@@ -10,10 +10,18 @@ use Inertia\Response;
 
 class GenreController extends Controller
 {
-    public function index() : Response
+    public function index() : Response|RedirectResponse
     {
+        $genre = Genre::query()->paginate(10);
+
+        if(request()->page > $genre->lastPage()) {
+            return redirect()->route('genres.index', ['page' => $genre->lastPage()])->with([
+                'status' => 'genre-has-been-deleted',
+            ]);
+        }
+
         return inertia('Genres/GenreList', [
-            'genre' => Genre::query()->paginate(10),
+            'genres' => $genre,
             'status' => session('status'),
         ]);
     }
@@ -76,7 +84,7 @@ class GenreController extends Controller
         $genre->delete();
 
         return back()->with([
-            'status' => 'genre-has-been-delete',
+            'status' => 'genre-has-been-deleted',
         ]);
     }
 }
