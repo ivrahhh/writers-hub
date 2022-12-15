@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\Books\UserBookController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\View\DashboardController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -29,13 +30,15 @@ Route::middleware(['verified','auth'])->group(function() {
         ]);
     });
 
-    Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
-    Route::resource('tags', TagController::class)->except('show');
-    Route::resource('genres', GenreController::class)->except('show');
-    Route::resource('books', UserBookController::class);
-    Route::resource('books.chapters', ChapterController::class)->shallow();
-
-    Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
+    Route::middleware(EnsureUserIsAdmin::class)->group(function() {
+        Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
+        Route::resource('tags', TagController::class)->except('show');
+        Route::resource('genres', GenreController::class)->except('show');
+        Route::resource('books', UserBookController::class);
+        Route::resource('books.chapters', ChapterController::class)->shallow();
+        
+        Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
+    });
 });
 
 require __DIR__.'/auth.php';
