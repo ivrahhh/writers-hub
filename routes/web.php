@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Books\UpdateBookTagsController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\Books\UserBookController;
@@ -33,6 +34,8 @@ Route::middleware(['verified','auth'])->group(function() {
     Route::resource('genres', GenreController::class)->except('show');
     Route::resource('books', UserBookController::class);
     Route::resource('books.chapters', ChapterController::class)->shallow();
+
+    Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
 });
 
 require __DIR__.'/auth.php';
