@@ -2,7 +2,7 @@
 import TextBox from '@/Components/TextBox.vue';
 import Toast from '@/Components/Toast.vue';
 import AuthenticationLayout from '@/Layouts/AuthenticationLayout.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+import { Head, useForm } from '@inertiajs/inertia-vue3';
 import { computed, ref } from 'vue';
 
 const props = defineProps({
@@ -28,6 +28,7 @@ const request = () => {
 </script>
 
 <template>
+    <Head title="Forgot Password"/>
     <AuthenticationLayout>
         <div class="form-container">
             <form @submit.prevent="request" class="space-y-4">
