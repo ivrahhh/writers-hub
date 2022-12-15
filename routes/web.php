@@ -30,14 +30,14 @@ Route::middleware(['verified','auth'])->group(function() {
         ]);
     });
 
+    Route::resource('books', UserBookController::class);
+    Route::resource('books.chapters', ChapterController::class)->shallow();
+    Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
+    
     Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::resource('tags', TagController::class)->except('show');
         Route::resource('genres', GenreController::class)->except('show');
-        Route::resource('books', UserBookController::class);
-        Route::resource('books.chapters', ChapterController::class)->shallow();
-        
-        Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
     });
 });
 

@@ -18,7 +18,7 @@ class EnsureUserIsAdmin
     {
 
         if(! $request->user()->isAdmin()) {
-            return redirect('/');
+            return abort(403);
         }
 
         return $next($request);
