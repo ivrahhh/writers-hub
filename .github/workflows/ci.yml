@@ -1,4 +1,9 @@
-on: push
+on: 
+  push:
+    branches:
+      - main
+      - local-dev
+  pull_request:
 name: CI
 jobs:
   phpunit:
