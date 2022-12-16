@@ -5,6 +5,8 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\Books\UserBookController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\Profile\UpdateAboutMeController;
+use App\Http\Controllers\Profile\UserProfileController;
 use App\Http\Controllers\View\DashboardController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
@@ -21,19 +23,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['verified','auth'])->group(function() {
-    Route::get('/', function () {
-        return inertia('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    });
+    Route::get('/', fn() => inertia('Home'))->name('home');
 
     Route::resource('books', UserBookController::class);
     Route::resource('books.chapters', ChapterController::class)->shallow();
     Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
-    
+
+    Route::get('profile/{user:username}', UserProfileController::class)->name('user.profile');
+    Route::put('profile/{user:username}/update/about-me', UpdateAboutMeController::class)->name('user.profile.update.about-me');    
     Route::middleware(EnsureUserIsAdmin::class)->group(function() {
         Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::resource('tags', TagController::class)->except('show');
