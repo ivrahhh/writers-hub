@@ -27,8 +27,17 @@ class UserAuthenticationController extends Controller
     public function store(LoginRequest $request) : RedirectResponse
     {
         $request->authenticate();
+    
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = Auth::user();
+        
+        if($user->isAdmin()) {
+            return redirect()->route('dashboard');
+        }
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 
     /**

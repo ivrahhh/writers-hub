@@ -1,13 +1,19 @@
 <script setup>
 import Avatar from '@/Components/Avatar.vue'
 import Dropdown from '@/Components/Dropdown.vue'
-import { Link } from '@inertiajs/inertia-vue3'
+import { Link, usePage } from '@inertiajs/inertia-vue3'
+import { computed } from 'vue';
+
+const role = computed(() => {
+    return usePage().props.value.auth.user.role
+})
+
 
 </script>
 
 <template>
     <div class="flex flex-col h-screen">
-        <header>
+        <header class="relative z-40">
             <nav class="sticky top-0 w-full shadow bg-white px-4 py-3">
                 <div class="flex items-center gap-4 shrink-0">
                     <Link :href="route('home')" class="flex items-center gap-2">
@@ -39,6 +45,7 @@ import { Link } from '@inertiajs/inertia-vue3'
                                         {{ $page.props.auth.user.username }}
                                     </span>
                                 </div>
+                                <Link v-if="(role != 'Author')" :href="route('books.create')" class="block px-4 py-3 text-sm hover:bg-gray-100">Become an Author</Link>
                                 <Link :href="route('user.profile', $page.props.auth.user.username)" class="block px-4 py-3 text-sm hover:bg-gray-100">Profile</Link>
                                 <Link method="POST" as="button" :href="route('logout')" class="block text-start w-full px-4 py-3 text-sm hover:bg-gray-100">Logout</Link>
                             </template>

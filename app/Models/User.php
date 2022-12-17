@@ -46,18 +46,43 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the books related to the user
+     */
     public function books() : HasMany
     {
         return $this->hasMany(Book::class,'user_id');
     }
 
+    /**
+     * User image information
+     */
     public function image() : MorphOne
     {
         return $this->morphOne(Image::class,'imageable');
     }
 
+    /**
+     * Check if the user is admin
+     */
     public function isAdmin() : bool
     {
         return $this->role === 'Admin';
+    }
+
+    /**
+     * Check if the user is author
+     */
+    public function isAuthor() : bool
+    {
+        return $this->role === 'Author';
+    }
+
+    /**
+     * Check if the user is a default member
+     */
+    public function isMember() : bool
+    {
+        return $this->role === 'Member';
     }
 }

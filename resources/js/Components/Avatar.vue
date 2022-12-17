@@ -27,6 +27,9 @@ const setSize = computed(() => {
         case 'xl':
             return 'h-24 w-24 text-4xl'
             break
+        case 'profile':
+            return 'h-48 w-auto text-6xl'
+            break
         default:
             return 'h-8 w-8 text-base'
     }
@@ -39,7 +42,7 @@ const initial = computed(() => {
 </script>
 
 <template>
-    <div class="flex items-center justify-center rounded-full text-white bg-slate-900 cursor-pointer select-none" :class="setSize">
+    <div class="flex items-center justify-center rounded-full text-white bg-slate-900 select-none" :class="setSize">
         {{ initial }}
     </div>    
 </template>

@@ -29,6 +29,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'harvincent.parientes.capino@gmail.com',
             'remember_token' => null,
         ]);
+        
+        $author = User::factory()->create([
+            'username' => 'chichi',
+            'email' => 'sample@email.com',
+            'role' => 'Author',
+        ]);
 
         Image::factory()->for($user, 'imageable')->create();
 

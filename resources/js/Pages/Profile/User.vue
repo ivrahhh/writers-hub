@@ -1,4 +1,6 @@
 <script setup>
+import Avatar from '@/Components/Avatar.vue';
+import Badge from '@/Components/Badge.vue';
 import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
 import { Link, useForm } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
@@ -32,16 +34,24 @@ const reset = () => {
     <ApplicationLayout>
         <div class="bg-white min-h-[14rem] relative rounded-lg shadow">
             <div class="bg-slate-900 h-[6rem] rounded-t-lg"></div>
-            <div class="w-48 h-auto absolute top-4 left-4">
-                <img :src="user.image.url" class="w-full h-full aspect-square rounded-full"/>
+            <div class="w-48 h-auto absolute top-4 left-4 rounded-full ring-1 ring-gray-300">
+                <div v-if="!user.image">
+                    <Avatar size="profile" :user="user.username" />
+                </div>
+                <img v-else :src="user.image.url" class="w-full h-full aspect-square rounded-full"/>
             </div>
-            <div class="pl-56 py-3">
-                <div>
-                    <span class="text-lg">
-                        <i class="fa-solid fa-user-circle text-sm"></i>
-                        {{ user.username }}
-                    </span>
-                    <Link :href="route('user.profile', user.username)" class="text-xs text-blue-600"> #{{ user.id }}</Link>
+            <div class="pl-56 py-3 pr-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-lg">
+                            <i class="fa-solid fa-user-circle text-sm"></i>
+                            {{ user.username }}
+                        </span>
+                        <Link :href="route('user.profile', user.username)" class="text-xs text-blue-600"> #{{ user.id }}</Link>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <Badge :content="user.role" class="bg-indigo-600"/>
                 </div>
                 <div class="mt-4">
                     <h3 class="group">

@@ -8,7 +8,7 @@ const active = ref(false)
 <template>
     <div class="relative">
         <!-- Dropdown Toggler -->
-        <div @click="active = !active">
+        <div @click="active = !active" class="cursor-pointer">
             <slot name="toggler" />
         </div>
 

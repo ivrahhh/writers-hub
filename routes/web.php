@@ -23,15 +23,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware(['verified','auth'])->group(function() {
-    Route::get('/', fn() => inertia('Home'))->name('home');
-
+    Route::middleware('role:member,author')->group(function() {
+        Route::get('/', fn() => inertia('Home'))->name('home');
+    });
+        
     Route::resource('books', UserBookController::class);
     Route::resource('books.chapters', ChapterController::class)->shallow();
     Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
-
+    
     Route::get('profile/{user:username}', UserProfileController::class)->name('user.profile');
     Route::put('profile/{user:username}/update/about-me', UpdateAboutMeController::class)->name('user.profile.update.about-me');    
-    Route::middleware(EnsureUserIsAdmin::class)->group(function() {
+
+    Route::middleware('role:admin')->group(function() {
         Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::resource('tags', TagController::class)->except('show');
         Route::resource('genres', GenreController::class)->except('show');
