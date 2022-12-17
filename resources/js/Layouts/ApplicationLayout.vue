@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/inertia-vue3'
 
 <template>
     <div class="flex flex-col h-screen">
-        <header>
+        <header class="relative z-40">
             <nav class="sticky top-0 w-full shadow bg-white px-4 py-3">
                 <div class="flex items-center gap-4 shrink-0">
                     <Link :href="route('home')" class="flex items-center gap-2">
