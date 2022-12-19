@@ -18,7 +18,7 @@ class BookPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class BookPolicy
      */
     public function view(User $user, Book $book)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class BookPolicy
      */
     public function create(User $user)
     {
-        return is_null($user->role);
+        return $user->isAuthor() || $user->isMember();
     }
 
     /**

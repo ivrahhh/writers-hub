@@ -76,6 +76,8 @@ class UserBookController extends Controller
 
             $book->tags()->sync($request->tags());
             $book->genres()->sync($request->genres());
+
+            DB::commit();
             
         } catch (Exception $ex) {
             DB::rollBack();
