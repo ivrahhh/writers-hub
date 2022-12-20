@@ -1,34 +1,43 @@
-on: 
+name: Tests
+
+on:
   push:
-    branches:
-      - main
-      - local-dev
+    - main
+    - local-dev
   pull_request:
-name: CI
+
 jobs:
-  phpunit:
+  tests:
     runs-on: ubuntu-latest
-    container:
-      image: kirschbaumdevelopment/laravel-test-runner:8.1
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: writers_hub
-        ports:
-          - 33306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
       with:
-        fetch-depth: 1
-    - name: Install composer dependencies
+        php-version: '8.1'
+
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.testing', '.env')"
+
+    - name: Install PHP Dependencies
+      run: composer install --no-scripts
+
+    - name: Install Node Dependencies
+      run: npm install
+
+    - name: Generate Application Key
+      run: php artisan key:generate
+
+    - name: Create Database
       run: |
-        composer install --no-scripts
-    - name: Prepare Laravel Application
-      run: |
-        cp .env.ci .env
-        php artisan key:generate
-    - name: Run Testsuite
-      run: vendor/bin/phpunit tests/
+        mkdir -p database
+        touch database/database.sqlite
+    
+    - name: Execute Feature and Unit Tests
+      env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+      run: php artisan test
