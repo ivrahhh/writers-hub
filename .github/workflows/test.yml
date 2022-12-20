@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - local-dev
   pull_request:
 jobs:
   tests:
@@ -39,4 +40,4 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test
+      run: vendor/bin/phpunit

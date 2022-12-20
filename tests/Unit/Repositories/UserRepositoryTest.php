@@ -5,11 +5,14 @@ namespace Tests\Unit\Repositories;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\QueryException;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function testCanCreateNewUser()
     {
         $userRepository = new UserRepository;
