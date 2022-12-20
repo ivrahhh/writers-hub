@@ -2,7 +2,7 @@
 import Avatar from '@/Components/Avatar.vue';
 import Badge from '@/Components/Badge.vue';
 import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
-import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm, Head } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -31,6 +31,7 @@ const reset = () => {
 </script>
 
 <template>
+    <Head title="Profile"/>
     <ApplicationLayout>
         <div class="bg-white min-h-[14rem] relative rounded-lg shadow">
             <div class="bg-slate-900 h-[6rem] rounded-t-lg"></div>

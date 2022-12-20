@@ -14,10 +14,6 @@ use Inertia\Response;
 
 class UserBookController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Book::class, 'book');
-    }
     public function index() : Response
     {
         $books = Book::query()
@@ -36,7 +32,7 @@ class UserBookController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             $book = Book::query()->create(
                 $request->validatedBookInfo(),
             );
@@ -44,9 +40,10 @@ class UserBookController extends Controller
             $book->genres()->attach($request->genres());
             $book->tags()->attach($request->tags());
 
+            DB::commit();
+
         } catch (Exception $ex) {
             DB::rollBack();
-            dd($ex);
             return back()->with([
                 'status' => $ex->getMessage(),
             ]);
@@ -76,6 +73,8 @@ class UserBookController extends Controller
 
             $book->tags()->sync($request->tags());
             $book->genres()->sync($request->genres());
+
+            DB::commit();
             
         } catch (Exception $ex) {
             DB::rollBack();

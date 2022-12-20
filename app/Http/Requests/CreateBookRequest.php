@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Book;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,12 @@ class CreateBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        /**
+         * @var \App\Models\User $user
+         */
+        $user = $this->user();
+
+        return $user->can('create', Book::class);
     }
 
     /**
