@@ -14,7 +14,12 @@ class UpdateBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        /**
+         * @var \App\Model\User $user
+         */
+        $user = $this->user();
+
+        return $user->can('update', $this->book);
     }
 
     /**
