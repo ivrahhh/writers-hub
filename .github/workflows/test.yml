@@ -2,8 +2,9 @@ name: Tests
 
 on:
   push:
-    - main
-    - local-dev
+    branches:
+      - main
+      - local-dev
   pull_request:
 jobs:
   tests:
