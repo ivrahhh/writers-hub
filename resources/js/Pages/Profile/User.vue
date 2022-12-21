@@ -2,6 +2,7 @@
 import Avatar from '@/Components/Avatar.vue';
 import Badge from '@/Components/Badge.vue';
 import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
+import ChangePassword from '@/Partials/ChangePassword.vue';
 import { Link, useForm, Head } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
 
@@ -75,6 +76,9 @@ const reset = () => {
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+            <ChangePassword />
         </div>
     </ApplicationLayout>
 </template>
