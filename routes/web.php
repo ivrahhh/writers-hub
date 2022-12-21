@@ -5,6 +5,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\Books\UserBookController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\Profile\ChangePasswordController;
 use App\Http\Controllers\Profile\UpdateAboutMeController;
 use App\Http\Controllers\Profile\UserProfileController;
 use App\Http\Controllers\View\DashboardController;
@@ -31,9 +32,16 @@ Route::middleware(['verified','auth'])->group(function() {
     Route::resource('books.chapters', ChapterController::class)->shallow();
     Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
     
+    /**
+     * User Profile Routes
+     */
     Route::get('profile/{user:username}', UserProfileController::class)->name('user.profile');
     Route::put('profile/{user:username}/update/about-me', UpdateAboutMeController::class)->name('user.profile.update.about-me');    
+    Route::patch('profile/password/change', ChangePasswordController::class)->name('user.profile.update.password');
 
+    /**
+     * Admin Routes
+     */
     Route::middleware('role:admin')->group(function() {
         Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
         Route::resource('tags', TagController::class)->except('show');
