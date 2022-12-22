@@ -2,13 +2,15 @@
 import Avatar from '@/Components/Avatar.vue';
 import Badge from '@/Components/Badge.vue';
 import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
+import ChangeEmail from '@/Partials/ChangeEmail.vue';
 import ChangePassword from '@/Partials/ChangePassword.vue';
 import { Link, useForm, Head } from '@inertiajs/inertia-vue3';
-import { ref } from 'vue';
+import { ref, provide, computed } from 'vue';
 
 const props = defineProps({
     user: Object,
     books: Object,
+    status: String,
 })
 
 const change = ref(false)
@@ -78,7 +80,8 @@ const reset = () => {
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4 mt-4">
-            <ChangePassword />
+            <ChangePassword :status="status"/>
+            <ChangeEmail :status="status"/>
         </div>
     </ApplicationLayout>
 </template>

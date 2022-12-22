@@ -17,6 +17,7 @@ class UserProfileController extends Controller
         return inertia('Profile/User', [
             'user' => $user,
             'books' => $user->books()->get(),
+            'status' => session('status'),
         ]);
     }
 }

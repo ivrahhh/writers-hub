@@ -2,7 +2,11 @@
 import TextBox from '@/Components/TextBox.vue';
 import Toast from '@/Components/Toast.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
-import { computed,ref } from 'vue';
+import { computed, inject, ref } from 'vue';
+
+const props = defineProps({
+    status: String,
+})
 
 const form = useForm({
     password: '',
@@ -19,6 +23,7 @@ const resetPassword = () => {
             form.reset()
         },
         onSuccess: () => {
+            form.reset()
             active.value = passwordChange.value
             setTimeout(() => active.value = false, 5000)
         }
