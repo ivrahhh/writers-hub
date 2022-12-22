@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
+use App\Models\Genre;
+use App\Models\Tag;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +28,10 @@ class UserBookController extends Controller
 
     public function create() : Response
     {
-        return inertia('Books/CreateNewBook');
+        return inertia('Author/CreateBook', [
+            'tags'=> Tag::all(),
+            'genres' => Genre::all(),
+        ]);
     }
 
     public function store(CreateBookRequest $request) : RedirectResponse
@@ -37,7 +42,15 @@ class UserBookController extends Controller
             $book = Book::query()->create(
                 $request->validatedBookInfo(),
             );
-            
+
+            Auth::user()->update([
+                'role' => 'Author',
+            ]);
+
+            $book->image()->create([
+                'url' => fake()->imageUrl(word: $book->title),
+            ]);
+
             $book->genres()->attach($request->genres());
             $book->tags()->attach($request->tags());
 
@@ -50,7 +63,7 @@ class UserBookController extends Controller
             ]);
         }
         
-        return back()->with([
+        return redirect()->route('books.index')->with([
             'status' => 'book-has-been-created',
         ]);
     }

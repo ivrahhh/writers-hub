@@ -35,8 +35,8 @@ class BookTest extends TestCase
         $bookData = [
             'title' => 'The New Book',
             'synopsis' => fake()->realText(),
-            'tags' => Tag::all()->pluck('id')->random(5),
-            'genres' => Genre::all()->pluck('id')->random(3),
+            'tags' => Tag::all()->pluck('id')->random(5)->toArray(),
+            'genres' => Genre::all()->pluck('id')->random(3)->toArray(),
         ];
 
         $response = $this->actingAs($this->user)->post(route('books.store'), $bookData);
