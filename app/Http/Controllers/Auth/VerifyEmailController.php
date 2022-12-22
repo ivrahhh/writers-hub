@@ -10,7 +10,7 @@ use Inertia\Response;
 
 class VerifyEmailController extends Controller
 {
-    public function index(Request $request) : Response
+    public function index(Request $request) : Response|RedirectResponse
     {
         if($request->user()->hasVerifiedEmail()) {
             return redirect('/');

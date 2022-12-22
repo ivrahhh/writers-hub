@@ -3,8 +3,10 @@
 namespace Tests\Feature\Profile;
 
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -32,6 +34,23 @@ class ChangePasswordTest extends TestCase
 
         $response->assertValid();
         $this->assertTrue(Hash::check($newPassword,$this->user->fresh()->password));
+    }
+
+    public function test_it_will_fire_the_password_reset_event()
+    {
+        Event::fake(PasswordReset::class);
+
+        $newPassword = 'new_password';
+
+        $response = $this->actingAs($this->user)->patch(route('user.profile.update.password'), [
+            'password' => 'password',
+            'new_password' => $newPassword,
+            'new_password_confirmation' => $newPassword,
+        ]);
+
+        $response->assertValid();
+
+        Event::assertDispatched(PasswordReset::class);
     }
 
     public function test_it_will_throw_a_validation_error_if_the_password_is_not_confirmed()

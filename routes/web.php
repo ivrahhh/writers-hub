@@ -5,6 +5,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\Books\UserBookController;
 use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\Profile\ChangeEmailController;
 use App\Http\Controllers\Profile\ChangePasswordController;
 use App\Http\Controllers\Profile\UpdateAboutMeController;
 use App\Http\Controllers\Profile\UserProfileController;
@@ -38,6 +39,7 @@ Route::middleware(['verified','auth'])->group(function() {
     Route::get('profile/{user:username}', UserProfileController::class)->name('user.profile');
     Route::put('profile/{user:username}/update/about-me', UpdateAboutMeController::class)->name('user.profile.update.about-me');    
     Route::patch('profile/password/change', ChangePasswordController::class)->name('user.profile.update.password');
+    Route::patch('profile/email/change', ChangeEmailController::class)->name('user.profile.update.email');
 
     /**
      * Admin Routes
