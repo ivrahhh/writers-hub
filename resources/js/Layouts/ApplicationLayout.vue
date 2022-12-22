@@ -44,7 +44,7 @@ const user = computed(() => {
                                         {{ $page.props.auth.user.username }}
                                     </span>
                                 </div>
-                                <Link :href="route('author.dashboard', $page.props.auth.user.username)" class="block px-4 py-3 text-sm hover:bg-gray-100">
+                                <Link :href="route('author.dashboard')" class="block px-4 py-3 text-sm hover:bg-gray-100">
                                     {{  (user.role === 'Author') ? "Author's Dashboard" : 'Become an author' }}
                                 </Link>
                                 <Link :href="route('user.profile', $page.props.auth.user.username)" class="block px-4 py-3 text-sm hover:bg-gray-100">Profile</Link>

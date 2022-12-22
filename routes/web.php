@@ -33,7 +33,7 @@ Route::middleware(['verified','auth'])->group(function() {
     /**
      * Author Dashboard
      */
-    Route::prefix('author/{user:username}')->group(function() {
+    Route::prefix('author')->group(function() {
         Route::get('/', AuthorDashboardController::class)->name('author.dashboard');
         Route::resource('books', UserBookController::class);
         Route::resource('books.chapters', ChapterController::class)->shallow();
