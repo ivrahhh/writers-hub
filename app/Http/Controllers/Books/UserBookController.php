@@ -18,9 +18,10 @@ class UserBookController extends Controller
     {
         $books = Book::query()
                     ->where('user_id', Auth::id())
-                    ->paginate(10);
+                    ->with('image:imageable_id,url')
+                    ->paginate(5);
 
-        return inertia('Books/BookList', compact('books'));
+        return inertia('Author/BookList', compact('books'));
     }
 
     public function create() : Response

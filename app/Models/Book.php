@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Book extends Model
 {
@@ -37,5 +38,10 @@ class Book extends Model
     public function chapters() : HasMany
     {
         return $this->hasMany(Chapter::class,'book_id');
+    }
+
+    public function image() : MorphOne
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

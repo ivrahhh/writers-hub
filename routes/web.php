@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Author\AuthorDashboardController;
 use App\Http\Controllers\Books\UpdateBookTagsController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\TagController;
@@ -28,10 +29,16 @@ Route::middleware(['verified','auth'])->group(function() {
     Route::middleware('role:member,author')->group(function() {
         Route::get('/', fn() => inertia('Home'))->name('home');
     });
-        
-    Route::resource('books', UserBookController::class);
-    Route::resource('books.chapters', ChapterController::class)->shallow();
-    Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
+    
+    /**
+     * Author Dashboard
+     */
+    Route::prefix('author/{user:username}')->group(function() {
+        Route::get('/', AuthorDashboardController::class)->name('author.dashboard');
+        Route::resource('books', UserBookController::class);
+        Route::resource('books.chapters', ChapterController::class)->shallow();
+        Route::put('book/{book}/tags', UpdateBookTagsController::class)->name('book.tags.update');
+    });
     
     /**
      * User Profile Routes
