@@ -20,13 +20,13 @@ const user = computed(() => {
                 </Link>
             </header>
             <nav class="flex flex-col py-4">
-                <Anchor :href="route('author.dashboard', user.username)" :active="route().current('author.dashboard', user.username)">
+                <Anchor :href="route('author.dashboard')" :active="route().current('author.dashboard', user.username)">
                     <span class="flex items-center gap-2">
                         <i class="fa-solid fa-gauge"></i>
                         <span>Dashboard</span>
                     </span>
                 </Anchor>                                
-                <Anchor :href="route('books.index', user.username)" :active="route().current('books.index', user.username)">
+                <Anchor :href="route('books.index')" :active="route().current('books.index', user.username)">
                     <span class="flex items-center gap-2">
                         <i class="fa-solid fa-book"></i>
                         <span>My books</span>

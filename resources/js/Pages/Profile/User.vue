@@ -5,7 +5,7 @@ import ApplicationLayout from '@/Layouts/ApplicationLayout.vue';
 import ChangeEmail from '@/Partials/ChangeEmail.vue';
 import ChangePassword from '@/Partials/ChangePassword.vue';
 import { Link, useForm, Head } from '@inertiajs/inertia-vue3';
-import { ref, provide, computed } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     user: Object,
