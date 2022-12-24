@@ -19,7 +19,7 @@ class ChapterFactory extends Factory
     {
         return [
             'chapter_title' => fake()->sentence(),
-            'content' => fake()->realText(1000),
+            'content' => fake()->realText(2000),
             'book_id' => Book::factory(),
         ];
     }

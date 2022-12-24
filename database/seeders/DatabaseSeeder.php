@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Book;
+use App\Models\Chapter;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -39,6 +40,8 @@ class DatabaseSeeder extends Seeder
 
         Book::factory(20)->for($author)->has(Image::factory()->count(1))->create();
 
+        $book = Book::factory()->for($user)->has(Chapter::factory()->count(30))->create();
+        Image::factory()->for($book, 'imageable')->create(); 
         Image::factory()->for($user, 'imageable')->create();
 
         $this->call([TagSeeder::class, GenreSeeder::class]);

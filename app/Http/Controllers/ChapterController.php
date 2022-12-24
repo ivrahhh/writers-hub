@@ -9,6 +9,7 @@ use App\Models\Chapter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class ChapterController extends Controller
 {
@@ -29,6 +30,11 @@ class ChapterController extends Controller
         return back()->with([
             'status' => 'new-chapter-added',
         ]);
+    }
+
+    public function show(Chapter $chapter) : Response
+    {
+        return inertia('Chapter/ViewChapter', $chapter);
     }
 
     public function update(ChapterRequest $request, Chapter $chapter) : RedirectResponse
