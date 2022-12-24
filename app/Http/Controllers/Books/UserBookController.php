@@ -43,7 +43,12 @@ class UserBookController extends Controller
                 $request->validatedBookInfo(),
             );
 
-            Auth::user()->update([
+            /**
+             * @var \App\Models\User $user
+             */
+            $user = Auth::user();
+
+            $user->update([
                 'role' => 'Author',
             ]);
 
@@ -68,11 +73,25 @@ class UserBookController extends Controller
         ]);
     }
 
+    public function show(Book $book) : Response
+    {
+        $book->load([
+            'genres:id,genre',
+            'tags:id,tag',
+            'chapters' => function($query) {
+                $query->select('id','chapter_title','book_id','created_at')->latest();
+            },
+            'image:imageable_id,url'
+        ]);
+
+        return inertia('Author/ShowBook', compact('book'));
+    }
+
     public function edit(Book $book) : Response
     {
         $book->load(['tags','genres','author']);
 
-        return inertia('Book/ShowBook', compact('book'));
+        return inertia('Book/EditBook', compact('book'));
     }
 
     public function update(Book $book, UpdateBookRequest $request) : RedirectResponse

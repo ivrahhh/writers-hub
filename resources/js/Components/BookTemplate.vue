@@ -1,4 +1,6 @@
 <script setup>
+import { Link } from '@inertiajs/inertia-vue3';
+
 
 defineProps({
     book: Object,
@@ -11,7 +13,7 @@ defineProps({
             <img :src="book.image.url"  class="object-cover h-full rounded-lg"/>
         </div>
         <div class="flex flex-col px-4">
-            <h6 class="text-lg font-bold">{{ book.title }}</h6>
+            <Link :href="route('books.show', book.id)" class="text-lg font-bold">{{ book.title }}</Link>
             <span class="text-xs text-gray-600  ">
                 Publish Date :{{ new Date(book.created_at).toLocaleDateString() }}
             </span>
