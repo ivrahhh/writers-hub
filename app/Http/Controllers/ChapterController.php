@@ -23,6 +23,13 @@ class ChapterController extends Controller
         return view('Books/Chapters', compact('chapters'));
     }
 
+    public function create($book) : Response
+    {
+        return inertia('Chapters/CreateChapter', [
+            'book' => (int) $book,
+        ]);
+    }
+
     public function store(ChapterRequest $request, Book $book) : RedirectResponse
     {
         $chapter = $book->chapters()->create($request->validated());
